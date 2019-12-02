@@ -2,10 +2,12 @@ package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -22,7 +24,6 @@ import com.google.gson.JsonParser;
 public class MainActivity extends AppCompatActivity {
 
     JsonParser jsonParser = new JsonParser();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
     private SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
     private Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+
+    //Button button = findViewById(R.id.button);
+    //ObjectAnimator animation = ObjectAnimator.ofFloat(button, "translationX", 100f);
+
 }
 
 //idea
