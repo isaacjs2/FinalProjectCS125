@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imgMove"
         android:layout_width="112dp"
         android:layout_height="112dp"
         android:contentDescription="@string/app_name"
@@ -34,7 +34,7 @@
         android:layout_marginBottom="16dp"
         android:text="@string/start"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintBottom_toTopOf="@+id/imgMove"
         app:layout_constraintEnd_toEndOf="@+id/gameId"
         app:layout_constraintHorizontal_bias="0.34"
         app:layout_constraintStart_toStartOf="@+id/gameId" />

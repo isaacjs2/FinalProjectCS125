@@ -4,23 +4,29 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Color;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
     private Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-
+    private ImageView imgMove;
+    private Timer timer;
+    private int direction = 0;
     private static int cycle = 20;
 
     @Override
@@ -37,10 +43,62 @@ public class MainActivity extends AppCompatActivity {
                 moveCycle();
             }
         });
+        SensorManager sensorManager =
+                (SensorManager) getSystemService(SENSOR_SERVICE);
+        Sensor rotationVectorSensor =
+                sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        // Create a listener
+        SensorEventListener rvListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+                float[] rotationMatrix = new float[16];
+                SensorManager.getRotationMatrixFromVector(
+                        rotationMatrix, sensorEvent.values);
+                // Remap coordinate system
+                float[] remappedRotationMatrix = new float[16];
+                SensorManager.remapCoordinateSystem(rotationMatrix,
+                        SensorManager.AXIS_X,
+                        SensorManager.AXIS_Z,
+                        remappedRotationMatrix);
+
+                // Convert to orientations
+                float[] orientations = new float[3];
+                SensorManager.getOrientation(remappedRotationMatrix, orientations);
+                for(int i = 0; i < 3; i++) {
+                    orientations[i] = (float)(Math.toDegrees(orientations[i]));
+                }
+                if(orientations[2] > 10) {
+                    direction = 1;
+//                    ObjectAnimator animation = ObjectAnimator.ofFloat(txtMove, "translationX", 100f);
+//                    animation.setDuration(500);
+//                    animation.start();
+                } else if(orientations[2] < -10) {
+                    direction = -1;
+//                    ObjectAnimator animation = ObjectAnimator.ofFloat(txtMove, "translationX", -100f);
+//                    animation.setDuration(500);
+//                    animation.start();
+
+                } else if(Math.abs(orientations[2]) < 10) {
+                    direction = 0;
+                    getWindow().getDecorView().setBackgroundColor(Color.WHITE);
+                }
+                System.out.println("ORIENTATION: " + orientations[2]);
+
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int i) {
+            }
+        };
+
+        // Register it
+        sensorManager.registerListener(rvListener,
+                rotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
     }
 
     public void moveCycle() {
-        int[] views = new int[]{R.id.imageView, R.id.imageView2, R.id.imageView3, R.id.imageView4,
+        int[] views = new int[]{R.id.imageView, R.id.imageView2, R.id.imgMove, R.id.imageView4,
                 R.id.imageView5, R.id.imageView6, R.id.imageView7};
         views = randomizeArray(views);
         /*final ImageView im1 = findViewById(views[0]);
@@ -193,5 +251,34 @@ public class MainActivity extends AppCompatActivity {
             array[randomPosition] = temp;
         }
         return array;
+    }
+    public void move() {
+        imgMove = findViewById(R.id.imgMove);
+        //Declare the timer
+        Timer t = new Timer();
+        //Set the schedule function and rate
+        t.scheduleAtFixedRate(new TimerTask() {
+                                  @Override
+                                  public void run() {
+                                      runOnUiThread(new Runnable() {
+
+                                          @Override
+                                          public void run() {
+                                              if (direction == 1) {
+                                                  imgMove.setX(imgMove.getX() + 1);
+                                              }
+                                              if (direction == -1) {
+                                                  imgMove.setX(imgMove.getX() - 1);
+                                              }
+                                          }
+
+                                      });
+                                  }
+
+                              },
+                //Set how long before to start calling the TimerTask (in milliseconds)
+                0,
+                //Set the amount of time between each execution (in milliseconds)
+                2);
     }
 }
