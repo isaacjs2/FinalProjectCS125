@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -101,12 +102,12 @@ public class MainActivity extends AppCompatActivity {
         sensorManager.registerListener(rvListener,
                 rotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
-    }
 
     public void moveCycle() {
-        int[] views = new int[]{R.id.imageView, R.id.imageView2, R.id.imgMove, R.id.imageView4,
-                R.id.imageView5, R.id.imageView6, R.id.imageView7};
+        int[] views = new int[]{R.id.ornament1, R.id.ornament2, R.id.ornament3, R.id.ornament4,
+                R.id.ornament5, R.id.ornament6, R.id.ornament7};
         views = randomizeArray(views);
+        //MAKE IMAGES 60dpx60dp !!!!!!
         final ImageView im1 = findViewById(views[0]);
         final ImageView im2 = findViewById(views[1]);
         final ImageView im3 = findViewById(views[2]);
