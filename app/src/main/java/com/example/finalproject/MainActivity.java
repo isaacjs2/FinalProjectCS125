@@ -30,10 +30,13 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer;
     private int direction = 0;
     private static int cycle = 20;
+    private int scoreCount = 0;
+    TextView score = findViewById(R.id.score);
     Button start = findViewById(R.id.btnStart);
     TextView title = findViewById(R.id.gameId);
     TextView level = findViewById(R.id.level);
     TextView win = findViewById(R.id.winMessage);
+    ImageView stocking = findViewById(R.id.stocking);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,9 +131,22 @@ public class MainActivity extends AppCompatActivity {
                 animation.start();
                 String levelString = "Level " + (cycle + 1);
                 level.setText(levelString);
+
+                //collision
+                int im1Y = im1.getTop();
+                int im1X = im1.getLeft();
+                int stockingY = stocking.getTop();
+                int stockingX = stocking.getLeft();
+                if (Math.abs(im1Y - stockingY) < 30 && Math.abs(im1X - stockingX) < 30) {
+                    scoreCount++;
+                    score.setText("Score: " + scoreCount);
+                    im1.setVisibility(View.INVISIBLE);
+                }
+
                 if (cycle < 25) {
                     handler.postDelayed(this, 9000 - (cycle * 240));
                 }
+
             }
         };
         handler.postDelayed(runnableCode, 0);
@@ -142,6 +158,18 @@ public class MainActivity extends AppCompatActivity {
                 ObjectAnimator animation2 = ObjectAnimator.ofFloat(im2, "translationY", startY, 1850);
                 animation2.setDuration(3000 - (cycle * 40));
                 animation2.start();
+
+                //collision
+                int im2Y = im2.getTop();
+                int im2X = im2.getLeft();
+                int stockingY = stocking.getTop();
+                int stockingX = stocking.getLeft();
+                if (Math.abs(im2Y - stockingY) < 30 && Math.abs(im2X - stockingX) < 30) {
+                    scoreCount++;
+                    score.setText("Score: " + scoreCount);
+                    im2.setVisibility(View.INVISIBLE);
+                }
+
                 if (cycle < 25) {
                     handler2.postDelayed(this, 9000 - (cycle * 240));
                 }
@@ -156,6 +184,18 @@ public class MainActivity extends AppCompatActivity {
                 ObjectAnimator animation3 = ObjectAnimator.ofFloat(im3, "translationY", startY, 1850);
                 animation3.setDuration(3000 - (cycle * 40));
                 animation3.start();
+
+                //collision
+                int im3Y = im3.getTop();
+                int im3X = im3.getLeft();
+                int stockingY = stocking.getTop();
+                int stockingX = stocking.getLeft();
+                if (Math.abs(im3Y - stockingY) < 30 && Math.abs(im3X - stockingX) < 30) {
+                    scoreCount++;
+                    score.setText("Score: " + scoreCount);
+                    im3.setVisibility(View.INVISIBLE);
+                }
+
                 if (cycle < 25) {
                     handler3.postDelayed(this, 9000 - (cycle * 240));
                 }
@@ -170,6 +210,18 @@ public class MainActivity extends AppCompatActivity {
                 ObjectAnimator animation4 = ObjectAnimator.ofFloat(im4, "translationY", startY, 1850);
                 animation4.setDuration(3000 - (cycle * 40));
                 animation4.start();
+
+                //collision
+                int im4Y = im4.getTop();
+                int im4X = im4.getLeft();
+                int stockingY = stocking.getTop();
+                int stockingX = stocking.getLeft();
+                if (Math.abs(im4Y - stockingY) < 30 && Math.abs(im4X - stockingX) < 30) {
+                    scoreCount++;
+                    score.setText("Score: " + scoreCount);
+                    im4.setVisibility(View.INVISIBLE);
+                }
+
                 if (cycle < 25) {
                     handler4.postDelayed(this, 9000 - (cycle * 240));
                 }
@@ -184,6 +236,18 @@ public class MainActivity extends AppCompatActivity {
                 ObjectAnimator animation5 = ObjectAnimator.ofFloat(im5, "translationY", startY, 1850);
                 animation5.setDuration(3000 - (cycle * 40));
                 animation5.start();
+
+                //collision
+                int im5Y = im5.getTop();
+                int im5X = im5.getLeft();
+                int stockingY = stocking.getTop();
+                int stockingX = stocking.getLeft();
+                if (Math.abs(im5Y - stockingY) < 30 && Math.abs(im5X - stockingX) < 30) {
+                    scoreCount++;
+                    score.setText("Score: " + scoreCount);
+                    im5.setVisibility(View.INVISIBLE);
+                }
+
                 if (cycle < 25) {
                     handler5.postDelayed(this, 9000 - (cycle * 240));
                 }
@@ -198,6 +262,18 @@ public class MainActivity extends AppCompatActivity {
                 ObjectAnimator animation6 = ObjectAnimator.ofFloat(im6, "translationY", startY, 1850);
                 animation6.setDuration(3000 - (cycle * 40));
                 animation6.start();
+
+                //collision
+                int im6Y = im6.getTop();
+                int im6X = im6.getLeft();
+                int stockingY = stocking.getTop();
+                int stockingX = stocking.getLeft();
+                if (Math.abs(im6Y - stockingY) < 30 && Math.abs(im6X - stockingX) < 30) {
+                    scoreCount++;
+                    score.setText("Score: " + scoreCount);
+                    im6.setVisibility(View.INVISIBLE);
+                }
+
                 if (cycle < 25) {
                     handler6.postDelayed(this, 9000 - (cycle * 240));
                 }
@@ -212,6 +288,18 @@ public class MainActivity extends AppCompatActivity {
                 ObjectAnimator animation7 = ObjectAnimator.ofFloat(im7, "translationY", startY, 1850);
                 animation7.setDuration(3000 - (cycle * 40));
                 animation7.start();
+
+                //collision
+                int im7Y = im7.getTop();
+                int im7X = im7.getLeft();
+                int stockingY = stocking.getTop();
+                int stockingX = stocking.getLeft();
+                if (Math.abs(im7Y - stockingY) < 30 && Math.abs(im7X - stockingX) < 30) {
+                    scoreCount++;
+                    score.setText("Score: " + scoreCount);
+                    im7.setVisibility(View.INVISIBLE);
+                }
+
                 if (cycle < 25) {
                     handler7.postDelayed(this, 9000 - (cycle * 240));
                 }
