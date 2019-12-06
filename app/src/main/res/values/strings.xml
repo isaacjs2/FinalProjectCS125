@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">FinalProject</string>
     <string name="start">START</string>
-    <string name="title">Fruit Catcher</string>
+    <string name="title">Ornament Catcher</string>
+    <string name="blank"> </string>
+    <string name="level">Level </string>
+    <string name="winMessage">You Win!</string>
 </resources>

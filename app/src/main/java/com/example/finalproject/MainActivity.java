@@ -12,6 +12,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,18 +29,23 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer;
     private int direction = 0;
     private static int cycle = 20;
+    Button start = findViewById(R.id.btnStart);
+    TextView title = findViewById(R.id.gameId);
+    TextView level = findViewById(R.id.level);
+    TextView win = findViewById(R.id.winMessage);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        test.setOnClickListener(new View.OnClickListener() {
+        start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                test.setVisibility(View.INVISIBLE);
+                start.setVisibility(View.INVISIBLE);
+                title.setVisibility(View.INVISIBLE);
                 level.setVisibility(View.VISIBLE);
-                end.setVisibility(View.INVISIBLE);
+                win.setVisibility(View.INVISIBLE);
                 moveCycle();
             }
         });
@@ -101,13 +107,13 @@ public class MainActivity extends AppCompatActivity {
         int[] views = new int[]{R.id.imageView, R.id.imageView2, R.id.imgMove, R.id.imageView4,
                 R.id.imageView5, R.id.imageView6, R.id.imageView7};
         views = randomizeArray(views);
-        /*final ImageView im1 = findViewById(views[0]);
+        final ImageView im1 = findViewById(views[0]);
         final ImageView im2 = findViewById(views[1]);
         final ImageView im3 = findViewById(views[2]);
         final ImageView im4 = findViewById(views[3]);
         final ImageView im5 = findViewById(views[4]);
         final ImageView im6 = findViewById(views[5]);
-        final ImageView im7 = findViewById(views[6]);*/
+        final ImageView im7 = findViewById(views[6]);
 
         final float startY = im1.getY();
 
@@ -119,10 +125,8 @@ public class MainActivity extends AppCompatActivity {
                 final ObjectAnimator animation = ObjectAnimator.ofFloat(im1, "translationY", startY, 1850);
                 animation.setDuration(3000 - (cycle * 40));
                 animation.start();
-                /*String levelString = "Wave " + (cycle + 1);
-                level.setText(levelString);*/
-
-                //level.setVisibility(View.VISIBLE);
+                String levelString = "Level " + (cycle + 1);
+                level.setText(levelString);
                 if (cycle < 25) {
                     handler.postDelayed(this, 9000 - (cycle * 240));
                 }
@@ -151,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                 ObjectAnimator animation3 = ObjectAnimator.ofFloat(im3, "translationY", startY, 1850);
                 animation3.setDuration(3000 - (cycle * 40));
                 animation3.start();
-                //level.setVisibility(View.INVISIBLE);
                 if (cycle < 25) {
                     handler3.postDelayed(this, 9000 - (cycle * 240));
                 }
@@ -228,9 +231,8 @@ public class MainActivity extends AppCompatActivity {
                 im7.setY(startY);
                 cycle++;
                 if (cycle >= 25)  {
-                    //level.setVisibility(View.INVISIBLE);
-                    //TextView end = findViewById(R.id.end);
-                    //end.setVisibility(View.VISIBLE);
+                    level.setVisibility(View.INVISIBLE);
+                    win.setVisibility(View.VISIBLE);
                     return;
                 }
                 if (cycle < 25) {
