@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imgMove;
     private Timer timer;
     private int direction = 0;
-    private static int cycle = 20;
+    private static int cycle = 0;
     private int scoreCount = 0;
     TextView score = findViewById(R.id.score);
     Button start = findViewById(R.id.btnStart);
@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
         int[] views = new int[]{R.id.ornament1, R.id.ornament2, R.id.ornament3, R.id.ornament4,
                 R.id.ornament5, R.id.ornament6, R.id.ornament7};
         views = randomizeArray(views);
-        //MAKE IMAGES 60dpx60dp !!!!!!
         final ImageView im1 = findViewById(views[0]);
         final ImageView im2 = findViewById(views[1]);
         final ImageView im3 = findViewById(views[2]);
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 if (Math.abs(im1Y - stockingY) < 30 && Math.abs(im1X - stockingX) < 30) {
                     scoreCount++;
                     score.setText("Score: " + scoreCount);
-                    im1.setVisibility(View.INVISIBLE);
+                    //im1.setVisibility(View.INVISIBLE);
                 }
 
                 if (cycle < 25) {
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 if (Math.abs(im2Y - stockingY) < 30 && Math.abs(im2X - stockingX) < 30) {
                     scoreCount++;
                     score.setText("Score: " + scoreCount);
-                    im2.setVisibility(View.INVISIBLE);
+                    //im2.setVisibility(View.INVISIBLE);
                 }
 
                 if (cycle < 25) {
@@ -193,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                 if (Math.abs(im3Y - stockingY) < 30 && Math.abs(im3X - stockingX) < 30) {
                     scoreCount++;
                     score.setText("Score: " + scoreCount);
-                    im3.setVisibility(View.INVISIBLE);
+                    //im3.setVisibility(View.INVISIBLE);
                 }
 
                 if (cycle < 25) {
@@ -219,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                 if (Math.abs(im4Y - stockingY) < 30 && Math.abs(im4X - stockingX) < 30) {
                     scoreCount++;
                     score.setText("Score: " + scoreCount);
-                    im4.setVisibility(View.INVISIBLE);
+                    //im4.setVisibility(View.INVISIBLE);
                 }
 
                 if (cycle < 25) {
@@ -245,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                 if (Math.abs(im5Y - stockingY) < 30 && Math.abs(im5X - stockingX) < 30) {
                     scoreCount++;
                     score.setText("Score: " + scoreCount);
-                    im5.setVisibility(View.INVISIBLE);
+                    //im5.setVisibility(View.INVISIBLE);
                 }
 
                 if (cycle < 25) {
@@ -271,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
                 if (Math.abs(im6Y - stockingY) < 30 && Math.abs(im6X - stockingX) < 30) {
                     scoreCount++;
                     score.setText("Score: " + scoreCount);
-                    im6.setVisibility(View.INVISIBLE);
+                    //im6.setVisibility(View.INVISIBLE);
                 }
 
                 if (cycle < 25) {
@@ -297,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
                 if (Math.abs(im7Y - stockingY) < 30 && Math.abs(im7X - stockingX) < 30) {
                     scoreCount++;
                     score.setText("Score: " + scoreCount);
-                    im7.setVisibility(View.INVISIBLE);
+                    //im7.setVisibility(View.INVISIBLE);
                 }
 
                 if (cycle < 25) {
@@ -344,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
         return array;
     }
     public void move() {
-        imgMove = findViewById(R.id.imgMove);
+        imgMove = findViewById(R.id.stocking);
         //Declare the timer
         Timer t = new Timer();
         //Set the schedule function and rate
