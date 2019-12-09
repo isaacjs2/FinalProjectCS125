@@ -139,15 +139,19 @@ public class MainActivity extends AppCompatActivity {
                 level.setText(levelString);
 
                 //collision
-                int im1Y = im1.getTop();
-                int im1X = im1.getLeft();
-                int stockingY = stocking.getTop();
-                int stockingX = stocking.getLeft();
-                if (Math.abs(im1Y - stockingY) < 30 && Math.abs(im1X - stockingX) < 30) {
-                    scoreCount++;
-                    score.setText("Score: " + scoreCount);
-                    //im1.setVisibility(View.INVISIBLE);
-                }
+                int im1Top = im1.getTop();
+                int im1Left = im1.getLeft();
+                int im1Bottom = im1.getBottom();
+                int im1Right = im1.getRight();
+                int stockingTop = stocking.getTop();
+                int stockingLeft = stocking.getLeft();
+                int stockingRight = stocking.getRight();
+                int stockingBottom = stocking.getBottom();
+//                if (Math.abs(im1Y - stockingY) < 30 && Math.abs(im1X - stockingX) < 30) {
+//                    scoreCount++;
+//                    score.setText("Score: " + scoreCount);
+//                    //im1.setVisibility(View.INVISIBLE);
+//                }
 
                 if (cycle < 25) {
                     handler.postDelayed(this, 9000 - (cycle * 240));
