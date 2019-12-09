@@ -24,35 +24,36 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
+    //private SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+    //private Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
     private ImageView imgMove;
     private Timer timer;
-    private boolean start = false;
     private int direction = 0;
     private static int cycle = 0;
     private int scoreCount = 0;
-    private TextView score;
-    private Button startBtn;
-    private TextView title;
-    private TextView level;
-    private TextView win;
-    private ImageView stocking;
-    private ImageView tree;
+    TextView score;
+    Button start;
+    TextView title;
+    TextView level;
+    TextView win;
+    ImageView stocking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         score = findViewById(R.id.score);
-        tree = findViewById(R.id.tree);
-        startBtn = findViewById(R.id.btnStart);
+        start = findViewById(R.id.btnStart);
         title = findViewById(R.id.gameId);
         level = findViewById(R.id.level);
         win = findViewById(R.id.winMessage);
         stocking = findViewById(R.id.stocking);
-        startBtn.setOnClickListener(new View.OnClickListener() {
+
+        start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                startBtn.setVisibility(View.INVISIBLE);
+                start.setVisibility(View.INVISIBLE);
                 title.setVisibility(View.INVISIBLE);
                 level.setVisibility(View.VISIBLE);
                 win.setVisibility(View.INVISIBLE);
@@ -60,6 +61,22 @@ public class MainActivity extends AppCompatActivity {
                 moveCycle();
             }
         });
+    }
+
+    public void moveCycle() {
+        int[] views = new int[]{R.id.ornament1, R.id.ornament2, R.id.ornament3, R.id.ornament4,
+                R.id.ornament5, R.id.ornament6, R.id.ornament7};
+        //views = randomizeArray(views);
+        final ImageView im1 = findViewById(views[0]);
+        final ImageView im2 = findViewById(views[1]);
+        final ImageView im3 = findViewById(views[2]);
+        final ImageView im4 = findViewById(views[3]);
+        final ImageView im5 = findViewById(views[4]);
+        final ImageView im6 = findViewById(views[5]);
+        final ImageView im7 = findViewById(views[6]);
+
+        final float startY = im1.getY();
+
         SensorManager sensorManager =
                 (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor rotationVectorSensor =
@@ -111,21 +128,6 @@ public class MainActivity extends AppCompatActivity {
         // Register it
         sensorManager.registerListener(rvListener,
                 rotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    public void moveCycle() {
-        int[] views = new int[]{R.id.ornament1, R.id.ornament2, R.id.ornament3, R.id.ornament4,
-                R.id.ornament5, R.id.ornament6, R.id.ornament7};
-        views = randomizeArray(views);
-        final ImageView im1 = findViewById(views[0]);
-        final ImageView im2 = findViewById(views[1]);
-        final ImageView im3 = findViewById(views[2]);
-        final ImageView im4 = findViewById(views[3]);
-        final ImageView im5 = findViewById(views[4]);
-        final ImageView im6 = findViewById(views[5]);
-        final ImageView im7 = findViewById(views[6]);
-
-        final float startY = im1.getY();
 
         //1
         final Handler handler = new Handler();
@@ -361,20 +363,12 @@ public class MainActivity extends AppCompatActivity {
 
                                           @Override
                                           public void run() {
-                                              System.out.println("X: " + imgMove.getX());
-                                              if (imgMove.getX() <= -1) {
-                                                  imgMove.setX(1);
-                                              }
-                                              if (imgMove.getX() > 600) {
-                                                  imgMove.setX(598);
-                                              }
                                               if (direction == 1) {
                                                   imgMove.setX(imgMove.getX() + 1);
                                               }
                                               if (direction == -1) {
                                                   imgMove.setX(imgMove.getX() - 1);
                                               }
-
                                           }
 
                                       });
