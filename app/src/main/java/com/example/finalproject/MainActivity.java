@@ -1,17 +1,20 @@
 package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.solver.widgets.Rectangle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,12 +34,12 @@ public class MainActivity extends AppCompatActivity {
     private int direction = 0;
     private static int cycle = 0;
     private int scoreCount = 0;
-    TextView score;
-    Button start;
-    TextView title;
-    TextView level;
-    TextView win;
-    ImageView stocking;
+    private TextView score;
+    private Button start;
+    private TextView title;
+    private TextView level;
+    private TextView win;
+    private ImageView stocking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     direction = 0;
                     getWindow().getDecorView().setBackgroundColor(Color.WHITE);
                 }
-                System.out.println("ORIENTATION: " + orientations[2]);
+                //System.out.println("ORIENTATION: " + orientations[2]);
 
             }
 
@@ -134,29 +137,24 @@ public class MainActivity extends AppCompatActivity {
         final Runnable runnableCode = new Runnable() {
             @Override
             public void run() {
-                final ObjectAnimator animation = ObjectAnimator.ofFloat(im1, "translationY", startY, 1850);
-                animation.setDuration(3000 - (cycle * 40));
-                animation.start();
+                im1.setVisibility(View.VISIBLE);
+                //final ObjectAnimator animation = ObjectAnimator.ofFloat(im1, "translationY", startY, cycle + 1);
+                //animation.setDuration(3000 - (cycle * 40));
+                //animation.start();
                 String levelString = "Level " + (cycle + 1);
                 level.setText(levelString);
 
+                im1.setY(im1.getY() + 10 * (cycle + 1));
+
                 //collision
-                int im1Top = im1.getTop();
-                int im1Left = im1.getLeft();
-                int im1Bottom = im1.getBottom();
-                int im1Right = im1.getRight();
-                int stockingTop = stocking.getTop();
-                int stockingLeft = stocking.getLeft();
-                int stockingRight = stocking.getRight();
-                int stockingBottom = stocking.getBottom();
-//                if (Math.abs(im1Y - stockingY) < 30 && Math.abs(im1X - stockingX) < 30) {
-//                    scoreCount++;
-//                    score.setText("Score: " + scoreCount);
-//                    //im1.setVisibility(View.INVISIBLE);
-//                }
+                if (Math.abs(im1.getY() - stocking.getY()) < 100 && Math.abs(im1.getX() - stocking.getX()) < 1000) {
+                    scoreCount++;
+                    score.setText("Score: " + scoreCount);
+                    im1.setVisibility(View.INVISIBLE);
+                }
 
                 if (cycle < 25) {
-                    handler.postDelayed(this, 9000 - (cycle * 240));
+                    handler.postDelayed(this, 1/*9000 - (cycle * 240)*/);
                 }
 
             }
@@ -356,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
         return array;
     }
     public void move() {
-        imgMove = findViewById(R.id.stocking);
+        //imgMove = findViewById(R.id.stocking);
         //Declare the timer
         Timer t = new Timer();
         //Set the schedule function and rate
@@ -368,10 +366,10 @@ public class MainActivity extends AppCompatActivity {
                                           @Override
                                           public void run() {
                                               if (direction == 1) {
-                                                  imgMove.setX(imgMove.getX() + 1);
+                                                  stocking.setX(stocking.getX() + 1);
                                               }
                                               if (direction == -1) {
-                                                  imgMove.setX(imgMove.getX() - 1);
+                                                  stocking.setX(stocking.getX() - 1);
                                               }
                                           }
 
