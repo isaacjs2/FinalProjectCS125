@@ -24,32 +24,39 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-    private Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
     private ImageView imgMove;
     private Timer timer;
+    private boolean start = false;
     private int direction = 0;
     private static int cycle = 0;
     private int scoreCount = 0;
-    TextView score = findViewById(R.id.score);
-    Button start = findViewById(R.id.btnStart);
-    TextView title = findViewById(R.id.gameId);
-    TextView level = findViewById(R.id.level);
-    TextView win = findViewById(R.id.winMessage);
-    ImageView stocking = findViewById(R.id.stocking);
+    private TextView score;
+    private Button startBtn;
+    private TextView title;
+    private TextView level;
+    private TextView win;
+    private ImageView stocking;
+    private ImageView tree;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        start.setOnClickListener(new View.OnClickListener() {
+        score = findViewById(R.id.score);
+        tree = findViewById(R.id.tree);
+        startBtn = findViewById(R.id.btnStart);
+        title = findViewById(R.id.gameId);
+        level = findViewById(R.id.level);
+        win = findViewById(R.id.winMessage);
+        stocking = findViewById(R.id.stocking);
+        startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                start.setVisibility(View.INVISIBLE);
+                startBtn.setVisibility(View.INVISIBLE);
                 title.setVisibility(View.INVISIBLE);
                 level.setVisibility(View.VISIBLE);
                 win.setVisibility(View.INVISIBLE);
+                move();
                 moveCycle();
             }
         });
@@ -354,12 +361,20 @@ public class MainActivity extends AppCompatActivity {
 
                                           @Override
                                           public void run() {
+                                              System.out.println("X: " + imgMove.getX());
+                                              if (imgMove.getX() <= -1) {
+                                                  imgMove.setX(1);
+                                              }
+                                              if (imgMove.getX() > 600) {
+                                                  imgMove.setX(598);
+                                              }
                                               if (direction == 1) {
                                                   imgMove.setX(imgMove.getX() + 1);
                                               }
                                               if (direction == -1) {
                                                   imgMove.setX(imgMove.getX() - 1);
                                               }
+
                                           }
 
                                       });
