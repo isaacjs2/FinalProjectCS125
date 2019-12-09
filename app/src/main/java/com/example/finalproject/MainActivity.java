@@ -80,44 +80,43 @@ public class MainActivity extends AppCompatActivity {
 
         final float startY = im1.getY();
 
-        SensorManager sensorManager =
+        SensorManager sensors =
                 (SensorManager) getSystemService(SENSOR_SERVICE);
-        Sensor rotationVectorSensor =
-                sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        Sensor rotationSensor =
+                sensors.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
         // Create a listener
         SensorEventListener rvListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
-                float[] rotationMatrix = new float[16];
+                float[] rotMat = new float[16];
                 SensorManager.getRotationMatrixFromVector(
-                        rotationMatrix, sensorEvent.values);
+                        rotMat, sensorEvent.values);
                 // Remap coordinate system
-                float[] remappedRotationMatrix = new float[16];
-                SensorManager.remapCoordinateSystem(rotationMatrix,
+                float[] remapRotMat = new float[16];
+                SensorManager.remapCoordinateSystem(rotMat,
                         SensorManager.AXIS_X,
                         SensorManager.AXIS_Z,
-                        remappedRotationMatrix);
+                        remapRotMat);
 
                 // Convert to orientations
-                float[] orientations = new float[3];
-                SensorManager.getOrientation(remappedRotationMatrix, orientations);
+                float[] orients = new float[3];
+                SensorManager.getOrientation(remapRotMat, orients);
                 for(int i = 0; i < 3; i++) {
-                    orientations[i] = (float)(Math.toDegrees(orientations[i]));
+                    orients[i] = (float)(Math.toDegrees(orients[i]));
                 }
-                if(orientations[2] > 10) {
+                if(orients[2] > 10) {
                     direction = 1;
 //                    ObjectAnimator animation = ObjectAnimator.ofFloat(txtMove, "translationX", 100f);
 //                    animation.setDuration(500);
 //                    animation.start();
-                } else if(orientations[2] < -10) {
+                } else if(orients[2] < -10) {
                     direction = -1;
 //                    ObjectAnimator animation = ObjectAnimator.ofFloat(txtMove, "translationX", -100f);
 //                    animation.setDuration(500);
 //                    animation.start();
 
-                } else if(Math.abs(orientations[2]) < 10) {
+                } else if(Math.abs(orients[2]) < 10) {
                     direction = 0;
-                    getWindow().getDecorView().setBackgroundColor(Color.WHITE);
                 }
                 //System.out.println("ORIENTATION: " + orientations[2]);
 
@@ -129,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
         };
 
         // Register it
-        sensorManager.registerListener(rvListener,
-                rotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensors.registerListener(rvListener,
+                rotationSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         //1
         final Handler handler = new Handler();
@@ -302,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
                                           public void run() {
                                               if (imgMove.getX() <= -200) {
                                                   imgMove.setX(-198);
-                                              }
+                                               }
                                               if (imgMove.getX() > 725) {
                                                   imgMove.setX(723);
                                               }
